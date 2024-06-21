@@ -10,15 +10,10 @@ import { useQuery } from '@tanstack/react-query'
 export function Sidebar() {
   const isMacOS = process.platform === 'darwin'
 
-  async function handleFetchDocuments() {
+  const { data } = useQuery(['documents'], async () => {
     const response = await window.api.fetchDocuments()
 
     return response.data
-  }
-
-  const { data } = useQuery({
-    queryKey: ['documents'],
-    queryFn: handleFetchDocuments,
   })
 
   return (
@@ -57,8 +52,12 @@ export function Sidebar() {
           <Navigation.Section>
             <Navigation.SectionTitle>Workspace</Navigation.SectionTitle>
             <Navigation.SectionContent>
-              {data && data.map((document) => {
-                return <Navigation.Link key={document.id}>{document.title}</Navigation.Link>
+              {data?.map((document) => {
+                return (
+                  <Navigation.Link key={document.id}>
+                    {document.title}
+                  </Navigation.Link>
+                )
               })}
             </Navigation.SectionContent>
           </Navigation.Section>
