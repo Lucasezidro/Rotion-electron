@@ -1,27 +1,27 @@
-import { contextBridge, ipcRenderer } from 'electron'
-import { ElectronAPI, electronAPI } from '@electron-toolkit/preload'
+import { contextBridge, ipcRenderer } from "electron";
+import { ElectronAPI, electronAPI } from "@electron-toolkit/preload";
 
 declare global {
   interface Window {
-    electron: ElectronAPI
-    api: typeof api
+    electron: ElectronAPI;
+    api: typeof api;
   }
 }
 
 const api = {
-  fetchDocuments(params: any) {
-    return ipcRenderer.invoke('fetch-documents', params)
+  fetchDocuments(): Promise<Array<{ id: string; title: string }>> {
+    return ipcRenderer.invoke("fetch-documents");
   }
-}
+};
 
 if (process.contextIsolated) {
   try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld("electron", electronAPI);
+    contextBridge.exposeInMainWorld("api", api);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 } else {
-  window.electron = electronAPI
-  window.api = api
+  window.electron = electronAPI;
+  window.api = api;
 }
