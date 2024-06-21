@@ -9,6 +9,7 @@
     ],
     "jsx": "react-jsx",
     "importHelpers": true,
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -26,6 +27,9 @@
       ],
       "@*": ["./src/*"],
     }
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": [
     "src",
