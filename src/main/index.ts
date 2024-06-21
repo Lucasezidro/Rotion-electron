@@ -8,6 +8,8 @@ import "./ipc";
 import "./store";
 import "./tray";
 
+import { createShortcuts } from "./shortcuts";
+
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1120,
@@ -26,6 +28,8 @@ function createWindow(): void {
       sandbox: false
     }
   });
+
+  createShortcuts(mainWindow);
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();

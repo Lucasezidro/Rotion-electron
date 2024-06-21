@@ -25,7 +25,7 @@ export function CreatePage() {
             }
           })
 
-          navigate(`/documents/${data.id}`)
+          navigate(`/document/${data.id}`)
         },
       },
     )
